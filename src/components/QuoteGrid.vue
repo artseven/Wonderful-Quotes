@@ -1,10 +1,18 @@
 <template>
-  <div class="row"></div>
+  <div class="row">
+    <app-quote v-for="quote in quotes" :key="quote.length">{{
+      quote
+    }}</app-quote>
+  </div>
 </template>
 
 <script>
+import Quote from "./Quote.vue";
 export default {
-  props: ["quotes"]
+  props: ["quotes"],
+  components: {
+    appQuote: Quote
+  }
 };
 </script>
 
