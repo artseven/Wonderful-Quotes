@@ -9,6 +9,12 @@
     <div class="row">
       <div class="col-sm-12 text-center">
         <div class="alert alert-info">Info: Click on a Quote to delete it</div>
+        <p>{{ quotes[0] | toUppercase | (to - lowercase) }}</p>
+        <hr />
+        <input v-model="filterText" />
+        <ul>
+          <li v-for="(fruit, index) in filteredFruits" :key="index"> {{ fruit }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -23,7 +29,9 @@ export default {
   data: () => {
     return {
       quotes: ["Just a Quote"],
-      maxQuotes: 10
+      maxQuotes: 10,
+      fruits: ["Apple", "Banana", "Mango", "Melon"],
+      filterText: ""
     };
   },
   components: {
@@ -40,6 +48,18 @@ export default {
     },
     deleteQuote(index) {
       this.quotes.splice(index, 1);
+    }
+  },
+  filters: {
+    toUppercase(value) {
+      return value.toUpperCase();
+    }
+  },
+  computed: {
+    filteredFruits() {
+      return this.fruits.filter(el => {
+        return el.match(this.filterText);
+      });
     }
   }
 };
